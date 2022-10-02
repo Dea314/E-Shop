@@ -26,10 +26,12 @@ import AdminEditProducts from "./pages/admin/AdminEditProduct";
 import AdminCreateProduct from "./pages/admin/AdminCreateProduct";
 import AdminChats from "./pages/admin/AdminChats";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
+import ScrollTop from "./utils/ScrollTop";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollTop />
       <Header />
       <Routes>
         <Route element={<RoutesWithUserChat />}>

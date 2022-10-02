@@ -29,13 +29,27 @@ const ProductList = () => {
             <ListGroup.Item>
               <AttributesFilter />
             </ListGroup.Item>
-
-            <Button variant="primary">Filter</Button>
-            <Button variant="danger">Reset filters</Button>
+            <ListGroup.Item>
+              <Button variant="primary">Filter</Button>
+              <Button variant="danger">Reset filters</Button>
+            </ListGroup.Item>
           </ListGroup>
         </Col>
         <Col md={9}>
-          <ProductForList />
+          {Array.from({ length: 6 }).map((_, idx) => (
+            <ProductForList
+              key={idx}
+              images={[
+                "books",
+                "cams",
+                "electronix",
+                "ebooks",
+                "games",
+                "toys",
+              ]}
+              idx={idx}
+            />
+          ))}
           <Pagins />
         </Col>
       </Row>
