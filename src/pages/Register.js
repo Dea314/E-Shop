@@ -13,6 +13,16 @@ import { Link } from "react-router-dom";
 const Register = () => {
   const [validated, setValidated] = useState(false);
 
+  const onChange = () => {
+    const password = document.querySelector("input[name=password]");
+    const confirm = document.querySelector("input[name=passwordConfirm]");
+    if (password.value === confirm.value) {
+      confirm.setCustomValidity("");
+    } else {
+      confirm.setCustomValidity("Passwords do not match");
+    }
+  };
+
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -60,6 +70,7 @@ const Register = () => {
                 placeholder="Your Password"
                 name="password"
                 minLength={6}
+                onChange={onChange}
               />
               <Form.Control.Feedback type="invalid">
                 Please enter your password!
@@ -76,6 +87,7 @@ const Register = () => {
                 placeholder="Confirm Password"
                 name="passwordConfirm"
                 minLength={6}
+                onChange={onChange}
               />
               <Form.Control.Feedback type="invalid">
                 Passwords should match!
