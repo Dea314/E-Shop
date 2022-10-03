@@ -4,6 +4,10 @@ import { LinkContainer } from "react-router-bootstrap";
 import AdminLinks from "../../components/admin/AdminLinks";
 
 const AdminProducts = () => {
+  const deleteHandler = () => {
+    if (window.confirm("Are you sure?")) alert("Product deleted!");
+    // Delete products
+  };
   return (
     <Container>
       <Row className="mt-5 ">
@@ -18,34 +22,52 @@ const AdminProducts = () => {
             </LinkContainer>
           </h1>
           <Table striped bordered hover responsive>
-            <thead>
+            <thead style={{ border: "1px lightgray" }}>
               <tr>
                 <th>#</th>
-                <th>User</th>
-                <th>Date</th>
-                <th>Total</th>
-                <th>Delivered</th>
-                <th>Payment method</th>
-                <th>Order details</th>
+                <th>Product name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Edit / Delete</th>
               </tr>
             </thead>
-            <tbody>
-              {["bi bi-check-lg text-success", "bi bi-x-lg text-danger"].map(
-                (icon, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
+            <tbody style={{ border: "1px lightgray" }}>
+              {[
+                {
+                  name: "Harry Potter and the Goblet of Fire",
+                  price: "36 €",
+                  category: "Books",
+                },
+                {
+                  name: "Mario Kart 8 Deluxe",
+                  price: "67 €",
+                  category: "Games",
+                },
+                { name: "Canon EOS", price: "184 €", category: "Cameras" },
+              ].map((item, idx) => (
+                <tr key={idx}>
+                  <td>{idx + 1}</td>
 
-                    <td>Steve Jobs</td>
-                    <td>22.10.2022</td>
-                    <td>42 €</td>
-                    <td>
-                      <i className={icon}></i>
-                    </td>
-                    <td>PayPal</td>
-                    <td></td>
-                  </tr>
-                )
-              )}
+                  <td>{item.name}</td>
+                  <td>{item.price}</td>
+                  <td>{item.category}</td>
+                  <td>
+                    <LinkContainer to={`/admin/edit-product/`}>
+                      <Button className="btn-sm">
+                        <i className="bi bi-pencil-square"></i>
+                      </Button>
+                    </LinkContainer>
+                    {" / "}
+                    <Button
+                      className="btn-sm"
+                      variant="danger"
+                      onClick={deleteHandler}
+                    >
+                      <i className="bi bi-x-circle"></i>
+                    </Button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </Col>

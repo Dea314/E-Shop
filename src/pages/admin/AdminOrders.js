@@ -13,7 +13,7 @@ const AdminOrders = () => {
         <Col md={10}>
           <h1>Order List</h1>
           <Table striped bordered hover responsive>
-            <thead>
+            <thead style={{ border: "1px lightgray" }}>
               <tr>
                 <th>#</th>
                 <th>User</th>
@@ -24,7 +24,7 @@ const AdminOrders = () => {
                 <th>Order details</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{ border: "1px lightgray" }}>
               {["bi bi-check-lg text-success", "bi bi-x-lg text-danger"].map(
                 (icon, index) => (
                   <tr key={index}>

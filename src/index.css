@@ -68,3 +68,8 @@ h3 {
   padding: 0;
   margin: 10px;
 }
+
+.user-chat {
+  background-color: rgb(96, 170, 240);
+  border-radius: 1rem;
+}

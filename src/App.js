@@ -21,7 +21,7 @@ import AdminUsers from "./pages/admin/AdminUsers";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminOrderDetails from "./pages/admin/AdminOrderDetails";
-import AdminEditUsers from "./pages/admin/AdminEditUser";
+import AdminEditUser from "./pages/admin/AdminEditUser";
 import AdminEditProducts from "./pages/admin/AdminEditProduct";
 import AdminCreateProduct from "./pages/admin/AdminCreateProduct";
 import AdminChats from "./pages/admin/AdminChats";
@@ -57,7 +57,7 @@ function App() {
         {/* protected admin routes */}
         <Route element={<ProtectedRoutes admin={true} />}>
           <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/edit-user" element={<AdminEditUsers />} />
+          <Route path="/admin/edit-user" element={<AdminEditUser />} />
           <Route path="/admin/products" element={<AdminProducts />} />
           <Route
             path="/admin/create-new-product"
