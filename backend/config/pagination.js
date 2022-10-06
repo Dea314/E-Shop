@@ -1,0 +1,4 @@
+// items per page
+const recordsPerPage = 5;
+
+module.exports = recordsPerPage;
