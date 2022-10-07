@@ -1,6 +1,7 @@
 //const { response } = require("express");
 const recordsPerPage = require("../config/pagination");
 const Product = require("../models/ProductModel");
+const imageValidate = require("../utils/imageValidate");
 
 // filter by price, rating, category
 
@@ -189,6 +190,102 @@ const adminCreateProduct = async (req, res, next) => {
   }
 };
 
+const adminUpdateProduct = async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.params.id).orFail();
+    const { name, description, count, price, category, attributesTable } =
+      req.body;
+    product.name = name || product.name;
+    product.description = description || product.description;
+    product.count = count || product.count;
+    product.price = price || product.price;
+    product.category = category || product.category;
+    product.attributesTable = attributesTable || product.attributesTable;
+    if (attributesTable.length > 0) {
+      product.attrs = [];
+      attributesTable.map((item) => {
+        product.attrs.push(item);
+      });
+    } else {
+      product.attrs = [];
+    }
+    await product.save();
+    res.json({ message: "Product updated" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// upload images
+const adminUpload = async (req, res, next) => {
+  try {
+    if (!req.files || !!req.files.images === false) {
+      return res.status(400).json({ message: "No files were uploaded" });
+    }
+    const validateResult = imageValidate(req.files.images);
+    if (validateResult.error) {
+      return res.status(400).send(validateResult.error);
+    }
+
+    const path = require("path");
+    const { v4: uuidv4 } = require("uuid"); // generate unique id of image
+    const uploadDirectory = path.resolve(
+      __dirname,
+      "../../frontend",
+      "public",
+      "img",
+      "products"
+    );
+
+    let product = await Product.findById(req.query.productId).orFail();
+
+    let imagesTable = [];
+
+    if (Array.isArray(req.files.images)) {
+      imagesTable = req.files.images;
+    } else {
+      imagesTable.push(req.files.images);
+    }
+
+    for (let image of imagesTable) {
+      let fileName = uuidv4() + path.extname(image.name);
+      let uploadPath = uploadDirectory + "/" + fileName;
+      product.images.push({ path: "/img/products/" + fileName });
+      image.mv(uploadPath, function (err) {
+        if (err) {
+          return res.status(500).send(err);
+        }
+      });
+    }
+    await product.save();
+    return res.send("Images uploaded");
+  } catch (error) {
+    next(error);
+  }
+};
+
+const adminDeleteProductImage = async (req, res, next) => {
+  try {
+    const imagePath = decodeURIComponent(req.params.imagePath);
+
+    const path = require("path");
+    const finalPath = path.resolve("../frontend/public") + imagePath;
+    const fs = require("fs");
+    fs.unlink(finalPath, (err) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+    });
+    await Product.findOneAndUpdate(
+      { _id: req.params.productId },
+      { $pull: { images: { path: imagePath } } } //pull img from db and delete from server
+    ).orFail();
+    return res.end();
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getProducts,
   getProductById,
@@ -196,4 +293,7 @@ module.exports = {
   adminGetProducts,
   adminDeleteProduct,
   adminCreateProduct,
+  adminUpdateProduct,
+  adminUpload,
+  adminDeleteProductImage,
 };
