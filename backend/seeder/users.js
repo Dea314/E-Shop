@@ -2,11 +2,20 @@ const bcrypt = require("bcryptjs");
 
 // users data- pass hashed with bcrypt
 const users = [
+
   {
-    name: "Admin",
-    email: "admin@example.com",
+    name: "Admin User",
+    email: "admin@admin.com",
+    password: bcrypt.hashSync("admin@admin.com", 10),
+    isAdmin: true,
+  }
+
+  {
+    name: "Adam",
+    email: "adam@example.com",
     password: bcrypt.hashSync("admin@example.com", 10),
-    role: "admin",
+    role: "user",
+    
   },
   {
     name: "Steve Jobs",

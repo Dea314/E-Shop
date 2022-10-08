@@ -12,6 +12,11 @@ const {
   adminDeleteProductImage,
 } = require("../controllers/productController");
 
+const {
+  verifyIsLogedIn,
+  verifyIsAdmin,
+} = require("../middleware/verifyAuthToken");
+
 // user routes
 router.get("/category/:categoryName/search/:searchQuery", getProducts); // search particular category
 router.get("/category/:categoryName", getProducts);
@@ -20,7 +25,9 @@ router.get("/", getProducts);
 router.get("/bestsellers", getBestSellers);
 router.get("/get-one/:id", getProductById);
 
-// admin routes
+// admin routes - middleware to check if user is admin
+router.use(verifyIsLogedIn);
+router.use(verifyIsAdmin);
 router.get("/admin", adminGetProducts);
 router.delete("/admin/:id", adminDeleteProduct);
 router.delete("/admin/image/:imagePath/:productId", adminDeleteProductImage);

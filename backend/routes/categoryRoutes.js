@@ -6,7 +6,13 @@ const {
   deleteCategory,
   saveAttr,
 } = require("../controllers/categoryController");
+const {
+  verifyIsLogedIn,
+  verifyIsAdmin,
+} = require("../middleware/verifyAuthToken");
 
+router.use(verifyIsLogedIn);
+router.use(verifyIsAdmin);
 router.get("/", getCategories);
 router.post("/", newCategory);
 router.delete("/:category", deleteCategory);
