@@ -1,4 +1,6 @@
 const User = require("../models/UserModel");
+const Review = require("../models/ReviewModel");
+const Product = require("../models/ProductModel");
 const { hashPassword, comparePasswords } = require("../utils/hashPasswords");
 const generateAuthToken = require("../utils/generateAuthToken");
 
@@ -101,18 +103,18 @@ const updateUserProfile = async (req, res, next) => {
     const user = await User.findById(req.user._id).orFail();
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
-    user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
-    user.address = req.body.address || user.address;
-    user.city = req.body.city || user.city;
-    user.postalCode = req.body.postalCode || user.postalCode;
-    user.country = req.body.country || user.country;
+    user.phoneNumber = req.body.phoneNumber;
+    user.address = req.body.address;
+    user.city = req.body.city;
+    user.postalCode = req.body.postalCode;
+    user.country = req.body.country;
 
-    if (req.body.password) {
+    if (req.body.password !== user.password) {
       user.password = hashPassword(req.body.password);
     }
     await user.save();
 
-    return res.json({
+    res.json({
       success: "User profile updated",
       userUpdated: {
         _id: user._id,
@@ -126,4 +128,86 @@ const updateUserProfile = async (req, res, next) => {
   }
 };
 
-module.exports = { getUsers, registerUser, loginUser, updateUserProfile };
+const getUserProfile = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id).orFail();
+    return res.send(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const writeReview = async (req, res, next) => {
+  try {
+    const session = await Review.startSession();
+    // get comment, rating from request.body:
+    const { comment, rating } = req.body;
+    // validate request:
+    if (!(comment && rating)) {
+      return res.status(400).send("All fields are required");
+    }
+
+    // create review id manually, it's needed for savin in Product collection
+
+    const ObjectId = require("mongodb").ObjectId;
+    let reviewId = ObjectId();
+
+    session.startTransaction();
+    await Review.create(
+      [
+        {
+          _id: reviewId,
+          comment: comment,
+          rating: Number(rating),
+          user: {
+            _id: req.user._id,
+            name: req.user.name + " " + req.user.lastName,
+          },
+        },
+      ],
+      { session: session }
+    );
+
+    const product = await Product.findById(req.params.productId)
+      .populate("reviews")
+      .session(session);
+
+    const alreadyReviewed = product.reviews.find(
+      (r) => r.user._id.toString() === req.user._id.toString()
+    );
+    if (alreadyReviewed) {
+      await session.abortTransaction();
+      session.endSession();
+      return res.status(400).send("Product already reviewed");
+    }
+    let prc = [...product.reviews];
+    prc.push({ rating: rating });
+    product.reviews.push(reviewId);
+    if (product.reviews.length === 1) {
+      product.rating = Number(rating);
+      product.reviewsNumber = 1;
+    } else {
+      product.reviewsNumber = product.reviews.length;
+      product.rating =
+        prc
+          .map((item) => Number(item.rating))
+          .reduce((sum, item) => sum + item, 0) / product.reviews.length;
+    }
+    await product.save();
+    await session.commitTransaction();
+    session.endSession();
+    res.send("Review created");
+  } catch (error) {
+    await session.abortTransaction();
+    next(error);
+  }
+};
+
+module.exports = {
+  getUsers,
+  registerUser,
+  loginUser,
+  updateUserProfile,
+  getUserProfile,
+  writeReview,
+};

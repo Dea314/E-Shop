@@ -52,8 +52,8 @@ const productSchema = mongoose.Schema(
     images: [imageSchema],
     reviews: [
       {
-        type: mongoose.Types.ObjectId,
-        ref: "Review",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: Review,
       },
     ],
     createdAt: {
