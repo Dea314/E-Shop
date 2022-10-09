@@ -7,11 +7,11 @@ const {
   saveAttr,
 } = require("../controllers/categoryController");
 const {
-  verifyIsLogedIn,
+  verifyIsLoggedIn,
   verifyIsAdmin,
 } = require("../middleware/verifyAuthToken");
 
-router.use(verifyIsLogedIn);
+router.use(verifyIsLoggedIn);
 router.use(verifyIsAdmin);
 router.get("/", getCategories);
 router.post("/", newCategory);

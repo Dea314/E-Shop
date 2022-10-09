@@ -203,6 +203,40 @@ const writeReview = async (req, res, next) => {
   }
 };
 
+const getUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id)
+      .select("name email isAdmin")
+      .orFail();
+    return res.send(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id).orFail();
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin || user.isAdmin;
+    await user.save();
+    return res.send("User updated");
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id).orFail();
+    await user.remove();
+    return res.send("User deleted");
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getUsers,
   registerUser,
@@ -210,4 +244,7 @@ module.exports = {
   updateUserProfile,
   getUserProfile,
   writeReview,
+  getUser,
+  updateUser,
+  deleteUser,
 };

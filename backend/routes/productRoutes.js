@@ -13,7 +13,7 @@ const {
 } = require("../controllers/productController");
 
 const {
-  verifyIsLogedIn,
+  verifyIsLoggedIn,
   verifyIsAdmin,
 } = require("../middleware/verifyAuthToken");
 
@@ -26,7 +26,7 @@ router.get("/bestsellers", getBestSellers);
 router.get("/get-one/:id", getProductById);
 
 // admin routes - middleware to check if user is admin
-router.use(verifyIsLogedIn);
+router.use(verifyIsLoggedIn);
 router.use(verifyIsAdmin);
 router.get("/admin", adminGetProducts);
 router.delete("/admin/:id", adminDeleteProduct);

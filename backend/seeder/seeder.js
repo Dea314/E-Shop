@@ -2,7 +2,7 @@ const connectDB = require("../config/db");
 
 connectDB();
 
-// all data to be imported to db
+// all data to be imported to db - update DB
 const categoryData = require("./categories");
 const productData = require("./products");
 const reviewsData = require("./reviews");

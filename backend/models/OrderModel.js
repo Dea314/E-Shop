@@ -4,14 +4,17 @@ const User = require("./UserModel");
 // connection to mongodb
 const orderSchema = mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    cartSubtotal: { type: Number, required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: User, required: true },
+    orderTotal: {
+      itemsCount: { type: Number, required: true },
+      cartSubtotal: { type: Number, required: true },
+    },
     cartItems: [
       {
         name: { type: String, required: true },
         price: { type: Number, required: true },
         image: { path: { type: String, required: true } },
-        qty: { type: Number, required: true },
+        quantity: { type: Number, required: true },
         count: { type: Number, required: true },
         // product: {
         //   type: mongoose.Schema.Types.ObjectId,
@@ -20,10 +23,11 @@ const orderSchema = mongoose.Schema(
         // },
       },
     ],
+    paymentMethod: { type: String, required: true },
     transactionResult: {
       status: { type: String },
       createTime: { type: String },
-      amount: { type: String },
+      amount: { type: Number },
       // id: { type: String },
       // update_time: { type: String },
       // email_address: { type: String },
