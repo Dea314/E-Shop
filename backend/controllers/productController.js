@@ -159,8 +159,8 @@ const adminGetProducts = async (req, res, next) => {
 
 const adminDeleteProduct = async (req, res, next) => {
   try {
-    const product = await Product.findById(req.params.id).orFail;
-    await product.remove;
+    const product = await Product.findById(req.params.id).orFail();
+    await product.remove();
     res.json({ message: "Product removed" });
   } catch (error) {
     next(error);
@@ -233,7 +233,7 @@ const adminUpload = async (req, res, next) => {
       __dirname,
       "../../frontend",
       "public",
-      "img",
+      "images",
       "products"
     );
 
@@ -250,7 +250,7 @@ const adminUpload = async (req, res, next) => {
     for (let image of imagesTable) {
       let fileName = uuidv4() + path.extname(image.name);
       let uploadPath = uploadDirectory + "/" + fileName;
-      product.images.push({ path: "/img/products/" + fileName });
+      product.images.push({ path: "/images/products/" + fileName });
       image.mv(uploadPath, function (err) {
         if (err) {
           return res.status(500).send(err);
@@ -278,7 +278,7 @@ const adminDeleteProductImage = async (req, res, next) => {
     });
     await Product.findOneAndUpdate(
       { _id: req.params.productId },
-      { $pull: { images: { path: imagePath } } } //pull img from db and delete from server
+      { $pull: { images: { path: imagePath } } } //pull image from db and delete from server
     ).orFail();
     return res.end();
   } catch (error) {

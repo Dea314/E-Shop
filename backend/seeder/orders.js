@@ -16,19 +16,19 @@ const orders = Array.from({ length: 18 }).map((_, index) => {
     let subtotal = 200;
   }
   return {
-    user: ObjectId(),
+    user: ObjectId("625add3d78fb449f9d9fe2ee"),
     orderTotal: {
       itemsCount: 3,
       cartSubtotal: subtotal,
     },
     cartItems: [
       {
-        product: ObjectId(),
-        name: "Product Name",
-        image: { path: "/img/toys.jpg" },
+        // product: ObjectId(),
+        name: "Product name",
+        image: { path: "/images/books-category.png" },
         price: 37,
+        quantity: 8,
         count: 17,
-        qty: 88,
       },
     ],
     paymentMethod: "PayPal",
