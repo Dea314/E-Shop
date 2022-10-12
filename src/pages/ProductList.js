@@ -7,6 +7,7 @@ import CategoryFilter from "../components/filterQueryResultOptions/CategoryFilte
 import AttributesFilter from "../components/filterQueryResultOptions/AttributesFilter";
 import ProductForList from "../components/ProductForList";
 import Pagins from "../components/Pagins";
+
 const ProductList = () => {
   return (
     <Container fluid>
@@ -29,13 +30,27 @@ const ProductList = () => {
             <ListGroup.Item>
               <AttributesFilter />
             </ListGroup.Item>
-
-            <Button variant="primary">Filter</Button>
-            <Button variant="danger">Reset filters</Button>
+            <ListGroup.Item>
+              <Button variant="primary">Filter</Button>{" "}
+              <Button variant="danger">Reset filters</Button>
+            </ListGroup.Item>
           </ListGroup>
         </Col>
         <Col md={9}>
-          <ProductForList />
+          {Array.from({ length: 6 }).map((_, index) => (
+            <ProductForList
+              key={index}
+              images={[
+                "books",
+                "cams",
+                "electronix",
+                "ebooks",
+                "games",
+                "toys",
+              ]}
+              index={index}
+            />
+          ))}
           <Pagins />
         </Col>
       </Row>

@@ -6,12 +6,12 @@ const CategoryFilter = () => {
     <>
       <span className="fw-bold">Category</span>
       <Form>
-        {Array.from({ length: 5 }).map((_, idx) => (
-          <div key={idx}>
-            <Form.Check type="checkbox" id={`check-api2-${idx}`}>
+        {Array.from({ length: 5 }).map((_, index) => (
+          <div key={index}>
+            <Form.Check type="checkbox" id={`check-api2-${index}`}>
               <Form.Check.Input type="checkbox" isValid />
               <Form.Check.Label style={{ cursor: "pointer" }}>
-                Category - {idx}
+                Category - {index}
               </Form.Check.Label>
             </Form.Check>
           </div>

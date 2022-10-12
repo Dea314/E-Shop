@@ -7,12 +7,12 @@ const RatingFilter = () => {
   return (
     <>
       <span className="fw-bold">Rating</span>
-      {Array.from({ length: 5 }).map((_, idx) => (
-        <Fragment key={idx}>
-          <Form.Check type="checkbox" id={`check-api-${idx}`}>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <Fragment key={index}>
+          <Form.Check type="checkbox" id={`check-api-${index}`}>
             <Form.Check.Input type="checkbox" isValid />
             <Form.Check.Label style={{ cursor: "pointer" }}>
-              <Rating readonly size="20" initialValue={5 - idx} />
+              <Rating readonly size="20" initialValue={5 - index} />
             </Form.Check.Label>
           </Form.Check>
         </Fragment>

@@ -18,8 +18,8 @@ const Home = () => {
       <ProductCarousel />
       <Container>
         <Row xs={1} md={2} className="cards g-4 mt-5">
-          {categories.map((category, idx) => (
-            <CategoryCard key={idx} category={category} idx={idx} />
+          {categories.map((category, index) => (
+            <CategoryCard key={index} category={category} index={index} />
           ))}
         </Row>
       </Container>

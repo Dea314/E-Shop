@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
@@ -21,15 +22,17 @@ import AdminUsers from "./pages/admin/AdminUsers";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminOrderDetails from "./pages/admin/AdminOrderDetails";
-import AdminEditUsers from "./pages/admin/AdminEditUser";
+import AdminEditUser from "./pages/admin/AdminEditUser";
 import AdminEditProducts from "./pages/admin/AdminEditProduct";
 import AdminCreateProduct from "./pages/admin/AdminCreateProduct";
 import AdminChats from "./pages/admin/AdminChats";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
+import ScrollTop from "./utils/ScrollTop";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollTop />
       <Header />
       <Routes>
         <Route element={<RoutesWithUserChat />}>
@@ -55,7 +58,7 @@ function App() {
         {/* protected admin routes */}
         <Route element={<ProtectedRoutes admin={true} />}>
           <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/edit-user" element={<AdminEditUsers />} />
+          <Route path="/admin/edit-user" element={<AdminEditUser />} />
           <Route path="/admin/products" element={<AdminProducts />} />
           <Route
             path="/admin/create-new-product"
@@ -63,7 +66,10 @@ function App() {
           />
           <Route path="/admin/edit-product" element={<AdminEditProducts />} />
           <Route path="/admin/orders" element={<AdminOrders />} />
-          <Route path="/admin/order-details" element={<AdminOrderDetails />} />
+          <Route
+            path="/admin/order-details/:id"
+            element={<AdminOrderDetails />}
+          />
           <Route path="/admin/chats" element={<AdminChats />} />
           <Route path="/admin/analytics" element={<AdminAnalytics />} />
         </Route>

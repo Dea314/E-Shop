@@ -2,18 +2,18 @@ import React from "react";
 import { Button, Card } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-const CategoryCard = ({ category, idx }) => {
+const CategoryCard = ({ category, index }) => {
   const images = [
-    "/img/books.png",
-    "/img/cams.png",
-    "/img/electronix.png",
-    "/img/ebooks.png",
-    "/img/games.png",
-    "/img/toys.png",
+    "/images/books.png",
+    "/images/cams.png",
+    "/images/electronix.png",
+    "/images/ebooks.png",
+    "/images/games.png",
+    "/images/toys.png",
   ];
   return (
     <Card className="card">
-      <Card.Img crossOrigin="anonymous" variant="top" src={images[idx]} />
+      <Card.Img crossOrigin="anonymous" variant="top" src={images[index]} />
       <Card.Body>
         <Card.Title>{category}</Card.Title>
         <Card.Text>

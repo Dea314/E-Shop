@@ -13,7 +13,7 @@ const ProductCarousel = () => {
           crossOrigin="anonymous"
           className="d-block w-100"
           style={{ height: "400px", objectFit: "cover" }}
-          src="/img/carousel/1.jpg"
+          src="/images/carousel/1.jpg"
           alt="1 slide"
         />
         <Carousel.Caption>
@@ -29,7 +29,7 @@ const ProductCarousel = () => {
         <img
           className="d-block w-100"
           style={{ height: "400px", objectFit: "cover" }}
-          src="/img/carousel/2.jpg"
+          src="/images/carousel/2.jpg"
           alt="2 slide"
         />
         <Carousel.Caption>
@@ -45,7 +45,7 @@ const ProductCarousel = () => {
         <img
           className="d-block w-100"
           style={{ height: "400px", objectFit: "cover" }}
-          src="/img/carousel/3.jpg"
+          src="/images/carousel/3.jpg"
           alt="3 slide"
         />
         <Carousel.Caption>
@@ -59,7 +59,7 @@ const ProductCarousel = () => {
         <img
           className="d-block w-100"
           style={{ height: "400px", objectFit: "cover" }}
-          src="/img/carousel/4.jpg"
+          src="/images/carousel/4.jpg"
           alt="4 slide"
         />
         <Carousel.Caption>
@@ -73,7 +73,7 @@ const ProductCarousel = () => {
         <img
           className="d-block w-100"
           style={{ height: "400px", objectFit: "cover" }}
-          src="/img/carousel/5.jpg"
+          src="/images/carousel/5.jpg"
           alt="5 slide"
         />
 
@@ -88,7 +88,7 @@ const ProductCarousel = () => {
         <img
           className="d-block w-100"
           style={{ height: "400px", objectFit: "cover" }}
-          src="/img/carousel/6.jpg"
+          src="/images/carousel/6.jpg"
           alt="6 slide"
         />
 

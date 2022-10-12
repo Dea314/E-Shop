@@ -7,14 +7,14 @@ const AttributesFilter = () => {
       {[
         { color: ["red", "blue", "green"] },
         { size: ["XS", "S", "M", "L"] },
-      ].map((item, idx) => (
-        <div key={idx} className="mb-3">
+      ].map((item, index) => (
+        <div key={index} className="mb-3">
           <Form.Label>
             <b>{Object.keys(item)}</b>
           </Form.Label>
-          {item[Object.keys(item)].map((i, idx) => (
+          {item[Object.keys(item)].map((i, index) => (
             <Form.Check
-              key={idx}
+              key={index}
               type="checkbox"
               id="default-checkbox"
               label={i}
