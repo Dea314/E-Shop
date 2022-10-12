@@ -19,18 +19,14 @@ const ProductsPage = ({ fetchProducts, deleteProduct }) => {
 
   useEffect(() => {
     const abctrl = new AbortController();
-
     fetchProducts(abctrl)
       .then((res) => setProducts(res))
       .catch((er) =>
-        setProducts([
-          {
-            name: er.response.data.message
-              ? er.response.data.message
-              : er.response.data,
-          },
-        ])
+        console.log(
+          "Error in fetching products in ProductsPage.js: " + er.message
+        )
       );
+
     return () => abctrl.abort();
   }, [fetchProducts, productDeleted]);
 

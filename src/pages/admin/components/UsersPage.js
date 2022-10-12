@@ -18,35 +18,15 @@ const UsersPage = ({ fetchUsers, deleteUser }) => {
   };
 
   useEffect(() => {
-    const abortController = new AbortController();
-    const signal = abortController;
-
-    fetchUsers(signal)
+    const abctrl = new AbortController();
+    fetchUsers(abctrl)
       .then((res) => setUsers(res))
-      .then((data) => console.log(data))
       .catch((er) =>
-        console.log(
-          er.response.data.message ? er.response.data.message : er.response.data
-        )
-      );
-    return () => signal.abort();
-
-    // return function cleanup() {
-    //   abortController.abort();
-    // };
+        console.log("Error in fetching users in UsersPage.js: " + er.message)
+      )
+      .finally(() => abctrl.abort());
+    return () => abctrl.abort();
   }, [fetchUsers, userDeleted]);
-
-  // useEffect(() => {
-  //   const abctrl = new AbortController();
-  //   fetchUsers(abctrl)
-  //     .then((res) => setUsers(res))
-  //     .catch((er) =>
-  //       console.log(
-  //         er.response.data.message ? er.response.data.message : er.response.data
-  //       )
-  //     );
-  //   return () => abctrl.abort();
-  // }, [userDeleted]);
 
   return (
     <Container>

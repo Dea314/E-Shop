@@ -9,18 +9,22 @@ import {
 } from "react-bootstrap";
 
 const CartItem = ({ item, orderCreated = false }) => {
+  item = {
+    name: "Product name",
+    image: { path: "/images/books-category.png" },
+    price: 37,
+    quantity: 8,
+    count: 17,
+  };
   return (
     <>
       <ListGroup.Item>
         <Row>
           <Col md={2}>
-            <Image
-              crossOrigin="anonymous"
-              src={item.image ? item.image.path ?? null : null}
-              fluid
-            />
+            <Image crossOrigin="anonymous" src={item.image.path} fluid />
           </Col>
           <Col md={2}>{item.name}</Col>
+
           <Col md={2}>
             <b> {item.price} €</b>
           </Col>

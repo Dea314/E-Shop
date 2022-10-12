@@ -22,8 +22,9 @@ const OrderDetailsPage = ({ getOrder, markAsDelivered }) => {
   const [isDelivered, setIsDelivered] = useState(false);
   const [cartSubtotal, setCartSubtotal] = useState(0);
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [orderButtonMessage, setOrderButtonMessage] =
-    useState("Mark as delivered");
+  const [orderButtonMessage, setOrderButtonMessage] = useState(
+    "Mark as delivered"
+  );
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
@@ -37,8 +38,8 @@ const OrderDetailsPage = ({ getOrder, markAsDelivered }) => {
           : setIsDelivered(false);
         setCartSubtotal(order.orderTotal.cartSubtotal);
         if (order.isDelivered) {
-          setButtonDisabled(true);
           setOrderButtonMessage("Order is delivered");
+          setButtonDisabled(true);
         }
         setCartItems(order.cartItems);
       })

@@ -1,5 +1,5 @@
 import React from "react";
-import chats from "../../chats.css";
+import "../../chats.css";
 
 const UserChat = () => {
   return (

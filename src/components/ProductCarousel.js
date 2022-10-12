@@ -34,7 +34,12 @@ const ProductCarousel = () => {
         />
         <Carousel.Caption>
           <LinkContainer style={cursorP} to="/product-details">
-            <h3 className="car-2">Wake up the child in you and play 😊 </h3>
+            <h3 className="car-2">
+              Wake up the child in you and play{" "}
+              <span role="img" aria-label="Smile">
+                😊
+              </span>
+            </h3>
           </LinkContainer>
           <p className="car-21">
             PC games, Nintendo or Playstation? No problem, we have them all
