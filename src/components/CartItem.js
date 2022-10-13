@@ -9,13 +9,13 @@ import {
 } from "react-bootstrap";
 
 const CartItem = ({ item, orderCreated = false }) => {
-  item = {
-    name: "Product name",
-    image: { path: "/images/books-category.png" },
-    price: 37,
-    quantity: 8,
-    count: 17,
-  };
+  // item = {
+  //   name: "Product name",
+  //   image: { path: "/images/books-category.png" },
+  //   price: 37,
+  //   quantity: 8,
+  //   count: 17,
+  // };
   return (
     <>
       <ListGroup.Item>
